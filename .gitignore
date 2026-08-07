@@ -1,0 +1,23 @@
+# Entorno virtual
+.venv/
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos temporales
+*.log
+*.tmp
+
+# Archivos de VS Code
+.vscode/
+
+# Salidas generadas
+salida/
+data/temp/
+data/salida/
+
+# Archivos del sistema
+Thumbs.db
+.DS_Store

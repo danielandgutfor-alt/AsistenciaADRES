@@ -1,32 +1,50 @@
-from pathlib import Path
-
 from config import INPUT_DIR
-from core.lector_cronograma import LectorCronograma
+
+from core.parser import Parser
+
+from core.excel import ExcelExporter
+
+from core.zip_manager import ZipManager
 
 
 def main():
 
-    print("=" * 60)
-    print("        ASISTENCIA ADRES")
-    print("=" * 60)
-
     archivo = INPUT_DIR / "Cronograma - Consolidado de asistencia.xlsx"
 
-    lector = LectorCronograma(archivo)
+    parser = Parser(archivo)
 
-    lector.cargar()
+    df = parser.obtener_dataframe()
 
-    hojas = lector.obtener_hojas()
+    exportador = ExcelExporter("salida")
+
+    exportador.exportar(df)
+
+    zip_manager = ZipManager("salida")
+
+    archivo_zip = zip_manager.comprimir_dependencias()
 
     print()
 
-    print(f"Se encontraron {len(hojas)} hojas:\n")
+    print("ZIP generado:")
 
-    for hoja in hojas:
+    print(archivo_zip)
 
-        print("•", hoja)
+    print()
+
+    print("=" * 80)
+    print("DATAFRAME")
+    print("=" * 80)
+
+    print(df.head())
+
+    print()
+
+    print(df.info())
+
+    print()
+
+    print("Total registros:", len(df))
 
 
 if __name__ == "__main__":
-
     main()
