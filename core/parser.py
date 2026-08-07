@@ -276,7 +276,7 @@ class Parser:
 
         valor = fila.iloc[indice]
 
-        if pd.isna(valor):
+        if pd.isna(valor) or str(valor).strip() == "":
             return 0
 
         try:
@@ -336,7 +336,9 @@ class Parser:
             #
             # Celda vacía = no asistió
             #
-            if pd.isna(valor):
+            valor = fila.iloc[columna]
+
+            if pd.isna(valor) or str(valor).strip() == "":
 
                 fecha = fechas[sesion]
 
